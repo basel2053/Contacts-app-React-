@@ -1,3 +1,5 @@
+import propTypes from 'prop-types';
+
 const ListContacts = props => {
 	return (
 		<ol className='contact-list'>
@@ -8,11 +10,18 @@ const ListContacts = props => {
 						<p>{contact.name}</p>
 						<p>{contact.handle}</p>
 					</div>
-					<button className='contact-remove'>Remove</button>
+					<button className='contact-remove' onClick={() => props.onDeleteContact(contact)}>
+						Remove
+					</button>
 				</li>
 			))}
 		</ol>
 	);
+};
+
+ListContacts.propTypes = {
+	contacts: propTypes.array.isRequired,
+	onDeleteContact: propTypes.func.isRequired,
 };
 
 export default ListContacts;
