@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
 import '../css/App.css';
 import ListContacts from './ListContacts';
+import CreateContact from './CreateContact';
 import * as ContactsAPI from '../utils/ContactsAPI';
+import { Route, Routes } from 'react-router-dom';
 const App = () => {
 	const removeContact = contact => {
+		ContactsAPI.remove(contact);
 		setContacts(contacts.filter(c => c.id !== contact.id));
 	};
 	const [contacts, setContacts] = useState([]);
@@ -15,9 +18,10 @@ const App = () => {
 		getContacts();
 	}, []);
 	return (
-		<div>
-			<ListContacts contacts={contacts} onDeleteContact={removeContact} />
-		</div>
+		<Routes>
+			<Route exact path='/' element={<ListContacts contacts={contacts} onDeleteContact={removeContact} />} />
+			<Route path='/create' element={<CreateContact />} />
+		</Routes>
 	);
 };
 
